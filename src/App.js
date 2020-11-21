@@ -6,6 +6,8 @@ import Navbar from "react-bootstrap/Navbar"
 import Card from "react-bootstrap/Card"
 import Form from "react-bootstrap/Form"
 import {evidence, ghosts} from "./data"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 
 
 const App = () => {
@@ -83,31 +85,35 @@ const App = () => {
       </Card>
 
       <h2 className="mt-3">Ghosts</h2>
-      {ghosts.filter(ghost => {
+      <Row>
+        {ghosts.filter(ghost => {
 
-        return selectedEvidence.every(item => ghost.evidence.includes(item))
-      }).map(ghost => {
-        return <Card body className="mb-3">
-          <h4>{ghost.name}</h4>
-          <p className="mb-0">
-            <strong>Evidence</strong>
-          </p>
-          <ul>
-            {ghost.evidence.map(ghostEvidence => {
-              const className = !selectedEvidence.includes(ghostEvidence) ? 'text-danger' : ''
-              return <li className={className}>{ghostEvidence}</li>
-            })}
-          </ul>
-          <p className="mb-0">
-            <strong>Notes</strong>
-          </p>
-          <ul>
-            {ghost.notes.map(ghostNote => {
-              return <li>{ghostNote}</li>
-            })}
-          </ul>
-        </Card>
-      })}
+          return selectedEvidence.every(item => ghost.evidence.includes(item))
+        }).map(ghost => {
+          return <Col xl={4} lg={6} md={12} className="d-flex">
+            <Card body className="mb-3 w-100">
+              <h4>{ghost.name}</h4>
+              <p className="mb-0">
+                <strong>Evidence</strong>
+              </p>
+              <ul>
+                {ghost.evidence.map(ghostEvidence => {
+                  const className = !selectedEvidence.includes(ghostEvidence) ? 'text-danger' : ''
+                  return <li className={className}>{ghostEvidence}</li>
+                })}
+              </ul>
+              <p className="mb-0">
+                <strong>Notes</strong>
+              </p>
+              <ul>
+                {ghost.notes.map(ghostNote => {
+                  return <li>{ghostNote}</li>
+                })}
+              </ul>
+            </Card>
+          </Col>
+        })}
+      </Row>
 
     </Container>
   )
