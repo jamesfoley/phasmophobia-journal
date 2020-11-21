@@ -25,7 +25,7 @@ const App = () => {
       </Navbar>
 
       <Card body className="mt-3">
-        Hello.
+        Welcome back. I've got some jobs ready for you.
       </Card>
 
       <h2 className="mt-3">Evidence</h2>
@@ -79,13 +79,21 @@ const App = () => {
       }).map(ghost => {
         return <Card body className="mb-3">
           <h4>{ghost.name}</h4>
-          <p>
+          <p className="mb-0">
             <strong>Evidence</strong>
           </p>
           <ul>
             {ghost.evidence.map(ghostEvidence => {
               const className = !selectedEvidence.includes(ghostEvidence) ? 'text-danger' : ''
               return <li className={className}>{ghostEvidence}</li>
+            })}
+          </ul>
+          <p className="mb-0">
+            <strong>Notes</strong>
+          </p>
+          <ul>
+            {ghost.notes.map(ghostNote => {
+              return <li>{ghostNote}</li>
             })}
           </ul>
         </Card>
