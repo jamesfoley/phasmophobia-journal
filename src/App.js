@@ -18,6 +18,10 @@ const App = () => {
   if (evidenceTwo !== "None") selectedEvidence.push(evidenceTwo)
   if (evidenceThree !== "None") selectedEvidence.push(evidenceThree)
 
+  const evidenceOneKey = Object.keys(evidence).find(key => evidence[key] === evidenceOne)
+  const evidenceTwoKey = Object.keys(evidence).find(key => evidence[key] === evidenceTwo)
+  const evidenceThreeKey = Object.keys(evidence).find(key => evidence[key] === evidenceThree)
+
   return (
     <Container className="p-3">
       <Navbar bg="light" expand="lg">
@@ -38,8 +42,10 @@ const App = () => {
               value={evidenceOne}
               onChange={event => setEvidenceOne(event.target.value)}
             >
-              {Object.keys(evidence).map(evidenceKey => {
-                return <option value={evidence[evidenceKey]}>{evidence[evidenceKey]}</option>
+              {Object.keys(evidence).filter(key => {
+                return key === 'none' || (key !== evidenceTwoKey && key !== evidenceThreeKey)
+              }).map(key => {
+                return <option value={evidence[key]}>{evidence[key]}</option>
               })}
             </Form.Control>
           </Form.Group>
@@ -51,7 +57,9 @@ const App = () => {
               value={evidenceTwo}
               onChange={event => setEvidenceTwo(event.target.value)}
             >
-              {Object.keys(evidence).map(evidenceKey => {
+              {Object.keys(evidence).filter(key => {
+                return key === 'none' || (key !== evidenceOneKey && key !== evidenceThreeKey)
+              }).map(evidenceKey => {
                 return <option value={evidence[evidenceKey]}>{evidence[evidenceKey]}</option>
               })}
             </Form.Control>
@@ -64,7 +72,9 @@ const App = () => {
               value={evidenceThree}
               onChange={event => setEvidenceThree(event.target.value)}
             >
-              {Object.keys(evidence).map(evidenceKey => {
+              {Object.keys(evidence).filter(key => {
+                return key === 'none' || (key !== evidenceOneKey && key !== evidenceTwoKey)
+              }).map(evidenceKey => {
                 return <option value={evidence[evidenceKey]}>{evidence[evidenceKey]}</option>
               })}
             </Form.Control>
