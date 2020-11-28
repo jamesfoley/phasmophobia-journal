@@ -128,7 +128,7 @@ export const ghosts = [
     ],
     notes: [
       'Travels at a significantly faster speed when hunting.',
-      'Hiding from it will cause it to move slowly'
+      'Hiding from it will cause it to move slowly.'
     ]
   },
   {
