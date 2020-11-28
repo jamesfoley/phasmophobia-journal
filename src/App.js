@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import Container from 'react-bootstrap/Container'
 
 import './App.css'
@@ -8,21 +8,25 @@ import Form from "react-bootstrap/Form"
 import {evidence, ghosts} from "./data"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
+import ButtonGroup from "react-bootstrap/ButtonGroup"
+import Button from "react-bootstrap/Button"
 
 
 const App = () => {
-  const [evidenceOne, setEvidenceOne] = useState('None')
-  const [evidenceTwo, setEvidenceTwo] = useState('None')
-  const [evidenceThree, setEvidenceThree] = useState('None')
+  const [selectedEvidence, setSelectedEvidence] = useState([])
 
-  const selectedEvidence = []
-  if (evidenceOne !== "None") selectedEvidence.push(evidenceOne)
-  if (evidenceTwo !== "None") selectedEvidence.push(evidenceTwo)
-  if (evidenceThree !== "None") selectedEvidence.push(evidenceThree)
+  const handleEvidenceClick = useCallback((key) => {
+    console.log(key)
+    const newSelectedEvidence = [...selectedEvidence]
+    console.log(newSelectedEvidence)
+    if (!newSelectedEvidence.includes(key)) {
+      newSelectedEvidence.push(key)
+    } else {
+      newSelectedEvidence.splice(newSelectedEvidence.indexOf(key), 1)
+    }
 
-  const evidenceOneKey = Object.keys(evidence).find(key => evidence[key] === evidenceOne)
-  const evidenceTwoKey = Object.keys(evidence).find(key => evidence[key] === evidenceTwo)
-  const evidenceThreeKey = Object.keys(evidence).find(key => evidence[key] === evidenceThree)
+    setSelectedEvidence(newSelectedEvidence)
+  }, [selectedEvidence])
 
   return (
     <Container className="p-3">
@@ -37,49 +41,12 @@ const App = () => {
       <h2 className="mt-3">Evidence</h2>
       <Card body>
         <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>First Evidence</Form.Label>
-            <Form.Control
-              as="select"
-              value={evidenceOne}
-              onChange={event => setEvidenceOne(event.target.value)}
-            >
-              {Object.keys(evidence).filter(key => {
-                return key === 'none' || (key !== evidenceTwoKey && key !== evidenceThreeKey)
-              }).map(key => {
-                return <option value={evidence[key]}>{evidence[key]}</option>
+          <Form.Group className="d-flex justify-content-center mb-0">
+            <ButtonGroup className="mb-0" aria-label="Basic example">
+              {Object.keys(evidence).map(key => {
+                return <Button variant={selectedEvidence.includes(key) ? "primary" : "secondary"} onClick={() => {handleEvidenceClick(key)}}>{evidence[key]}</Button>
               })}
-            </Form.Control>
-          </Form.Group>
-
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Second Evidence</Form.Label>
-            <Form.Control
-              as="select"
-              value={evidenceTwo}
-              onChange={event => setEvidenceTwo(event.target.value)}
-            >
-              {Object.keys(evidence).filter(key => {
-                return key === 'none' || (key !== evidenceOneKey && key !== evidenceThreeKey)
-              }).map(evidenceKey => {
-                return <option value={evidence[evidenceKey]}>{evidence[evidenceKey]}</option>
-              })}
-            </Form.Control>
-          </Form.Group>
-
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Third Evidence</Form.Label>
-            <Form.Control
-              as="select"
-              value={evidenceThree}
-              onChange={event => setEvidenceThree(event.target.value)}
-            >
-              {Object.keys(evidence).filter(key => {
-                return key === 'none' || (key !== evidenceOneKey && key !== evidenceTwoKey)
-              }).map(evidenceKey => {
-                return <option value={evidence[evidenceKey]}>{evidence[evidenceKey]}</option>
-              })}
-            </Form.Control>
+            </ButtonGroup>
           </Form.Group>
         </Form>
       </Card>
@@ -87,8 +54,14 @@ const App = () => {
       <h2 className="mt-3">Ghosts</h2>
       <Row>
         {ghosts.filter(ghost => {
+          const ghostEvidenceKeys = []
+          Object.keys(evidence).forEach((key) => {
+            if(ghost.evidence.includes(evidence[key])) {
+              ghostEvidenceKeys.push(key)
+            }
+          })
 
-          return selectedEvidence.every(item => ghost.evidence.includes(item))
+          return selectedEvidence.every(item => ghostEvidenceKeys.includes(item))
         }).map(ghost => {
           return <Col xl={4} lg={6} md={12} className="d-flex">
             <Card body className="mb-3 w-100">
@@ -98,7 +71,11 @@ const App = () => {
               </p>
               <ul>
                 {ghost.evidence.map(ghostEvidence => {
-                  const className = !selectedEvidence.includes(ghostEvidence) ? 'text-danger' : ''
+                  let evidenceKey = ''
+                  Object.keys(evidence).forEach(key => {
+                    if (evidence[key] === ghostEvidence) evidenceKey = key
+                  })
+                  const className = !selectedEvidence.includes(evidenceKey) ? 'text-danger' : ''
                   return <li className={className}>{ghostEvidence}</li>
                 })}
               </ul>

@@ -1,5 +1,5 @@
 export const evidence = {
-  none: "None",
+  // none: "None",
   freezingTemperatures: "Freezing Temperatures",
   spiritBox: "Spirit Box",
   fingerprints: "Fingerprints",
