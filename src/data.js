@@ -1,20 +1,42 @@
-export const evidence = {
-  // none: "None",
-  freezingTemperatures: "Freezing Temperatures",
-  spiritBox: "Spirit Box",
-  fingerprints: "Fingerprints",
-  emfLevel5: "EMF Level 5",
-  ghostOrb: "Ghost Orb",
-  ghostWriting: "Ghost Writing",
-}
+export const evidence = [
+  {
+    key: 'freezingTemperatures',
+    name: 'Freezing Temperatures'
+  },
+  {
+    key: 'spiritBox',
+    name: 'Spirit Box'
+  },
+  {
+    key: 'fingerprints',
+    name: 'Fingerprints'
+  },
+  {
+    key: 'emfLevel5',
+    name: 'EMF Level 5'
+  },
+  {
+    key: 'ghostOrb',
+    name: 'Ghost Orb'
+  },
+  {
+    key: 'ghostWriting',
+    name: 'Ghost Writing'
+  },
+]
+
+export const evidenceMap = {}
+evidence.forEach(item => {
+  evidenceMap[item.key] = item
+})
 
 export const ghosts = [
   {
     name: "Spirit",
     evidence: [
-      evidence.spiritBox,
-      evidence.fingerprints,
-      evidence.ghostWriting,
+      evidenceMap.spiritBox,
+      evidenceMap.fingerprints,
+      evidenceMap.ghostWriting,
     ],
     notes: [
       'Smudge sticks will stop it attacking for a long period of time.'
@@ -23,9 +45,9 @@ export const ghosts = [
   {
     name: "Wraith",
     evidence: [
-      evidence.fingerprints,
-      evidence.freezingTemperatures,
-      evidence.spiritBox,
+      evidenceMap.fingerprints,
+      evidenceMap.freezingTemperatures,
+      evidenceMap.spiritBox,
     ],
     notes: [
       'Known to travel through walls.',
@@ -36,9 +58,9 @@ export const ghosts = [
   {
     name: "Phantom",
     evidence: [
-      evidence.emfLevel5,
-      evidence.ghostOrb,
-      evidence.freezingTemperatures,
+      evidenceMap.emfLevel5,
+      evidenceMap.ghostOrb,
+      evidenceMap.freezingTemperatures,
     ],
     notes: [
       'Commonly summoned by a Ouija Board.',
@@ -49,9 +71,9 @@ export const ghosts = [
   {
     name: "Poltergeist",
     evidence: [
-      evidence.spiritBox,
-      evidence.fingerprints,
-      evidence.ghostOrb
+      evidenceMap.spiritBox,
+      evidenceMap.fingerprints,
+      evidenceMap.ghostOrb
     ],
     notes: [
       'Can manipulate objects around it.',
@@ -62,9 +84,9 @@ export const ghosts = [
   {
     name: "Banshee",
     evidence: [
-      evidence.emfLevel5,
-      evidence.fingerprints,
-      evidence.freezingTemperatures
+      evidenceMap.emfLevel5,
+      evidenceMap.fingerprints,
+      evidenceMap.freezingTemperatures
     ],
     notes: [
       'Stalks prey one at a time until making a kill.',
@@ -75,9 +97,9 @@ export const ghosts = [
   {
     name: "Jinn",
     evidence: [
-      evidence.spiritBox,
-      evidence.ghostOrb,
-      evidence.emfLevel5
+      evidenceMap.spiritBox,
+      evidenceMap.ghostOrb,
+      evidenceMap.emfLevel5
     ],
     notes: [
       'Travels at significant speed.',
@@ -88,9 +110,9 @@ export const ghosts = [
   {
     name: "Mare",
     evidence: [
-      evidence.spiritBox,
-      evidence.ghostOrb,
-      evidence.freezingTemperatures
+      evidenceMap.spiritBox,
+      evidenceMap.ghostOrb,
+      evidenceMap.freezingTemperatures
     ],
     notes: [
       'Increased chance of attacking in the dark.',
@@ -100,9 +122,9 @@ export const ghosts = [
   {
     name: "Revenant",
     evidence: [
-      evidence.emfLevel5,
-      evidence.fingerprints,
-      evidence.ghostWriting
+      evidenceMap.emfLevel5,
+      evidenceMap.fingerprints,
+      evidenceMap.ghostWriting
     ],
     notes: [
       'Travels at a significantly faster speed when hunting.',
@@ -112,9 +134,9 @@ export const ghosts = [
   {
     name: "Shade",
     evidence: [
-      evidence.emfLevel5,
-      evidence.ghostOrb,
-      evidence.ghostWriting
+      evidenceMap.emfLevel5,
+      evidenceMap.ghostOrb,
+      evidenceMap.ghostWriting
     ],
     notes: [
       'Shy ghost and is harder to find.',
@@ -124,9 +146,9 @@ export const ghosts = [
   {
     name: "Demon",
     evidence: [
-      evidence.spiritBox,
-      evidence.ghostWriting,
-      evidence.freezingTemperatures
+      evidenceMap.spiritBox,
+      evidenceMap.ghostWriting,
+      evidenceMap.freezingTemperatures
     ],
     notes: [
       'Will attack more often than any other ghost.',
@@ -136,9 +158,9 @@ export const ghosts = [
   {
     name: "Yurei",
     evidence: [
-      evidence.ghostOrb,
-      evidence.ghostWriting,
-      evidence.freezingTemperatures
+      evidenceMap.ghostOrb,
+      evidenceMap.ghostWriting,
+      evidenceMap.freezingTemperatures
     ],
     notes: [
       'Strong effect on sanity.',
@@ -148,9 +170,9 @@ export const ghosts = [
   {
     name: "Oni",
     evidence: [
-      evidence.emfLevel5,
-      evidence.spiritBox,
-      evidence.ghostWriting
+      evidenceMap.emfLevel5,
+      evidenceMap.spiritBox,
+      evidenceMap.ghostWriting
     ],
     notes: [
       'More active with people nearby.',

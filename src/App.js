@@ -1,14 +1,13 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useMemo, useState} from 'react'
 import Container from 'react-bootstrap/Container'
-
 import './App.css'
+
 import Navbar from "react-bootstrap/Navbar"
 import Card from "react-bootstrap/Card"
 import Form from "react-bootstrap/Form"
 import {evidence, ghosts} from "./data"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
-import ButtonGroup from "react-bootstrap/ButtonGroup"
 import Button from "react-bootstrap/Button"
 
 
@@ -16,22 +15,27 @@ const App = () => {
   const [selectedEvidence, setSelectedEvidence] = useState([])
 
   const handleEvidenceClick = useCallback((key) => {
-    console.log(key)
     const newSelectedEvidence = [...selectedEvidence]
-    console.log(newSelectedEvidence)
     if (!newSelectedEvidence.includes(key)) {
       newSelectedEvidence.push(key)
     } else {
       newSelectedEvidence.splice(newSelectedEvidence.indexOf(key), 1)
     }
-
     setSelectedEvidence(newSelectedEvidence)
   }, [selectedEvidence])
 
+  const filteredGhosts = useMemo(() => {
+    return ghosts.filter(ghost => {
+      return selectedEvidence.every(item => ghost.evidence.map(item => item.key).includes(item))
+    })
+  }, [selectedEvidence])
+
+  const evidenceButtonPrimaryClass = filteredGhosts.length === 0 ? 'danger' : 'primary'
+
   return (
-    <Container className="p-3">
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">Phasmophobia Journal</Navbar.Brand>
+    <Container className="p-3 text-white">
+      <Navbar bg="light" expand="lg" className="rounded">
+        <Navbar.Brand className="text-white">Phasmophobia Journal</Navbar.Brand>
       </Navbar>
 
       <Card body className="mt-3">
@@ -41,28 +45,18 @@ const App = () => {
       <h2 className="mt-3">Evidence</h2>
       <Card body>
         <Form>
-          <Form.Group className="d-flex justify-content-center mb-0">
-            <ButtonGroup className="mb-0" aria-label="Basic example">
-              {Object.keys(evidence).map(key => {
-                return <Button variant={selectedEvidence.includes(key) ? "primary" : "secondary"} onClick={() => {handleEvidenceClick(key)}}>{evidence[key]}</Button>
-              })}
-            </ButtonGroup>
+          <Form.Group className="d-flex justify-content-center flex-wrap mb-0">
+            <Button className="mr-1 mb-1" variant={selectedEvidence.length === 0 ? "warning" : "secondary"} onClick={() => {setSelectedEvidence([])}}>None</Button>
+            {evidence.map(item => {
+              return <Button className="mr-1 mb-1" variant={selectedEvidence.includes(item.key) ? evidenceButtonPrimaryClass : "secondary"} onClick={() => {handleEvidenceClick(item.key)}}>{item.name}</Button>
+            })}
           </Form.Group>
         </Form>
       </Card>
 
-      <h2 className="mt-3">Ghosts</h2>
+      <h2 className="mt-3">Ghosts ({filteredGhosts.length})</h2>
       <Row>
-        {ghosts.filter(ghost => {
-          const ghostEvidenceKeys = []
-          Object.keys(evidence).forEach((key) => {
-            if(ghost.evidence.includes(evidence[key])) {
-              ghostEvidenceKeys.push(key)
-            }
-          })
-
-          return selectedEvidence.every(item => ghostEvidenceKeys.includes(item))
-        }).map(ghost => {
+        {filteredGhosts.map(ghost => {
           return <Col xl={4} lg={6} md={12} className="d-flex">
             <Card body className="mb-3 w-100">
               <h4>{ghost.name}</h4>
@@ -70,13 +64,9 @@ const App = () => {
                 <strong>Evidence</strong>
               </p>
               <ul>
-                {ghost.evidence.map(ghostEvidence => {
-                  let evidenceKey = ''
-                  Object.keys(evidence).forEach(key => {
-                    if (evidence[key] === ghostEvidence) evidenceKey = key
-                  })
-                  const className = !selectedEvidence.includes(evidenceKey) ? 'text-danger' : ''
-                  return <li className={className}>{ghostEvidence}</li>
+                {ghost.evidence.map(item => {
+                  const className = !selectedEvidence.includes(item.key) ? 'text-danger' : ''
+                  return <li className={className}>{item.name}</li>
                 })}
               </ul>
               <p className="mb-0">
@@ -91,6 +81,15 @@ const App = () => {
           </Col>
         })}
       </Row>
+
+      {
+        filteredGhosts.length === 0 &&
+        <Card body className="text-danger">
+          There are no ghosts for your selected evidence.
+        </Card>
+      }
+
+      <p>By <a href="https://steamcommunity.com/id/Fishcake">Fishcake</a> </p>
 
     </Container>
   )
