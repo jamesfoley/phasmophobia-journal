@@ -89,7 +89,7 @@ const App = () => {
         </Card>
       }
 
-      <p>By <a href="https://steamcommunity.com/id/Fishcake">Fishcake</a> </p>
+      <p className="mt-3">By <a href="https://steamcommunity.com/id/Fishcake">Fishcake</a> </p>
 
     </Container>
   )
