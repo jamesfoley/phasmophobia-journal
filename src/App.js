@@ -69,8 +69,11 @@ const App = () => {
 
   return (
     <Container className="p-3 text-white">
-      <Navbar bg="light" expand="lg" className="rounded">
+      <Navbar bg="light" expand="lg" className="rounded justify-content-between">
         <Navbar.Brand className="text-white">Phasmophobia Journal</Navbar.Brand>
+        <Navbar.Text className="text-light">
+          Feedback or suggestions? Message <a className="text-light" style={{textDecoration: "underline"}} href="https://steamcommunity.com/id/Fishcake">Fishcake</a>
+        </Navbar.Text>
       </Navbar>
 
       <Card body className="mt-3">
