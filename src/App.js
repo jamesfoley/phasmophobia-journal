@@ -73,6 +73,15 @@ const App = () => {
         <Navbar.Brand className="text-white">Phasmophobia Journal</Navbar.Brand>
       </Navbar>
 
+      <Card body className="mt-3">
+        <p>Welcome back. I've got some jobs ready for you.</p>
+        <p className="mb-0 small">
+          Clicking an evidence button and turning it blue will show all ghosts with that selected evidence.
+          <br />Clicking an evidence button again and turning it red will remove all ghosts with that evidence.
+          <br />Clicking none will reset all of the buttons.
+        </p>
+      </Card>
+
       <h2 className="mt-3">Evidence</h2>
 
       <Card body>
@@ -108,11 +117,11 @@ const App = () => {
                 })}
               </ul>
               <p className="mb-0">
-                <strong>Notes</strong>
+                <strong className="small">Notes</strong>
               </p>
               <ul>
                 {ghost.notes.map(ghostNote => {
-                  return <li>{ghostNote}</li>
+                  return <li className="small">{ghostNote}</li>
                 })}
               </ul>
             </Card>
