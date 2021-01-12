@@ -12,25 +12,60 @@ import Button from "react-bootstrap/Button"
 
 
 const App = () => {
-  const [selectedEvidence, setSelectedEvidence] = useState([])
+  const defaultButtonState = {}
+  evidence.forEach(e => {
+    defaultButtonState[e.key] = 0
+  })
+  const [buttonState, setButtonState] = useState(defaultButtonState)
 
   const handleEvidenceClick = useCallback((key) => {
-    const newSelectedEvidence = [...selectedEvidence]
-    if (!newSelectedEvidence.includes(key)) {
-      newSelectedEvidence.push(key)
-    } else {
-      newSelectedEvidence.splice(newSelectedEvidence.indexOf(key), 1)
+
+    // Create a new button state
+    const newButtonState = {...buttonState}
+
+    // Get button state
+    switch(newButtonState[key]) {
+      case 0:
+        newButtonState[key] = 1
+        break
+      case 1:
+        newButtonState[key] = 2
+        break
+      default:
+        newButtonState[key] = 0
+        break
     }
-    setSelectedEvidence(newSelectedEvidence)
-  }, [selectedEvidence])
+
+    setButtonState(newButtonState)
+
+  }, [buttonState])
+
+  const evidenceButtonClass = (state) => {
+    switch(state) {
+      case 0:
+        return "secondary"
+      case 1:
+        return "primary"
+      case 2:
+        return "danger"
+    }
+  }
+
+  const noneButtonClass = () => {
+    return Object.values(buttonState).some(val => val !== 0) ? 'secondary' : 'warning'
+  }
 
   const filteredGhosts = useMemo(() => {
     return ghosts.filter(ghost => {
-      return selectedEvidence.every(item => ghost.evidence.map(item => item.key).includes(item))
-    })
-  }, [selectedEvidence])
+      const selectedEvidence = Object.keys(buttonState).filter(key => buttonState[key] === 1)
+      const omittedEvidence = Object.keys(buttonState).filter(key => buttonState[key] === 2)
+      const ghostEvidenceKeys = ghost.evidence.map(e => e.key)
+      const hasSelectedEvidence = selectedEvidence.every(e => ghostEvidenceKeys.includes(e))
+      const hasOmittedEvidence = omittedEvidence.some(e => ghostEvidenceKeys.includes(e))
 
-  const evidenceButtonPrimaryClass = filteredGhosts.length === 0 ? 'danger' : 'primary'
+      return hasSelectedEvidence && !hasOmittedEvidence
+    })
+  }, [buttonState])
 
   return (
     <Container className="p-3 text-white">
@@ -38,17 +73,20 @@ const App = () => {
         <Navbar.Brand className="text-white">Phasmophobia Journal</Navbar.Brand>
       </Navbar>
 
-      <Card body className="mt-3">
-        Welcome back. I've got some jobs ready for you.
-      </Card>
-
       <h2 className="mt-3">Evidence</h2>
+
       <Card body>
         <Form>
           <Form.Group className="d-flex justify-content-center flex-wrap mb-0">
-            <Button className="mr-1 mb-1" variant={selectedEvidence.length === 0 ? "warning" : "secondary"} onClick={() => {setSelectedEvidence([])}}>None</Button>
+            <Button className="mr-1 mb-1" variant={noneButtonClass()} onClick={() => {setButtonState(defaultButtonState)}}>None</Button>
             {evidence.map(item => {
-              return <Button className="mr-1 mb-1" variant={selectedEvidence.includes(item.key) ? evidenceButtonPrimaryClass : "secondary"} onClick={() => {handleEvidenceClick(item.key)}}>{item.name}</Button>
+              return <Button
+                className="mr-1 mb-1"
+                variant={evidenceButtonClass(buttonState[item.key])}
+                onClick={() => {handleEvidenceClick(item.key)}}
+              >
+                {item.name}
+              </Button>
             })}
           </Form.Group>
         </Form>
@@ -65,7 +103,7 @@ const App = () => {
               </p>
               <ul>
                 {ghost.evidence.map(item => {
-                  const className = !selectedEvidence.includes(item.key) ? 'text-danger' : ''
+                  const className = buttonState[item.key] === 0 ? 'text-danger' : ''
                   return <li className={className}>{item.name}</li>
                 })}
               </ul>
