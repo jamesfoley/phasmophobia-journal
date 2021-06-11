@@ -179,5 +179,29 @@ export const ghosts = [
       'Moves objects at high speed.',
       'Easy to find due to being more active.'
     ]
+  },
+  {
+    name: "Hantu",
+    evidence: [
+      evidenceMap.fingerprints,
+      evidenceMap.ghostOrb,
+      evidenceMap.ghostWriting
+    ],
+    notes: [
+      'Fast in lower temperatures.',
+      'Slow in higher temperatures.'
+    ]
+  },
+  {
+    name: "Yokai",
+    evidence: [
+      evidenceMap.spiritBox,
+      evidenceMap.ghostOrb,
+      evidenceMap.ghostWriting
+    ],
+    notes: [
+      'Talking near a Yokai will anger it and increase its chance of attacking.',
+      'When hunting a Yokai can only hear voices close to it.'
+    ]
   }
 ]
