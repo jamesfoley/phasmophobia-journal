@@ -23,6 +23,10 @@ export const evidence = [
     key: 'ghostWriting',
     name: 'Ghost Writing'
   },
+  {
+    key: 'dotsProjector',
+    name: 'D.O.T.S Projector'
+  },
 ]
 
 export const evidenceMap = {}
@@ -34,8 +38,8 @@ export const ghosts = [
   {
     name: "Spirit",
     evidence: [
+      evidenceMap.emfLevel5,
       evidenceMap.spiritBox,
-      evidenceMap.fingerprints,
       evidenceMap.ghostWriting,
     ],
     notes: [
@@ -45,9 +49,9 @@ export const ghosts = [
   {
     name: "Wraith",
     evidence: [
-      evidenceMap.fingerprints,
-      evidenceMap.freezingTemperatures,
+      evidenceMap.emfLevel5,
       evidenceMap.spiritBox,
+      evidenceMap.dotsProjector,
     ],
     notes: [
       'Known to travel through walls.',
@@ -58,9 +62,9 @@ export const ghosts = [
   {
     name: "Phantom",
     evidence: [
-      evidenceMap.emfLevel5,
-      evidenceMap.ghostOrb,
-      evidenceMap.freezingTemperatures,
+      evidenceMap.spiritBox,
+      evidenceMap.fingerprints,
+      evidenceMap.dotsProjector,
     ],
     notes: [
       'Commonly summoned by a Ouija Board.',
@@ -73,7 +77,7 @@ export const ghosts = [
     evidence: [
       evidenceMap.spiritBox,
       evidenceMap.fingerprints,
-      evidenceMap.ghostOrb
+      evidenceMap.ghostWriting
     ],
     notes: [
       'Can manipulate objects around it.',
@@ -84,9 +88,9 @@ export const ghosts = [
   {
     name: "Banshee",
     evidence: [
-      evidenceMap.emfLevel5,
       evidenceMap.fingerprints,
-      evidenceMap.freezingTemperatures
+      evidenceMap.ghostOrb,
+      evidenceMap.dotsProjector
     ],
     notes: [
       'Stalks prey one at a time until making a kill.',
@@ -97,9 +101,9 @@ export const ghosts = [
   {
     name: "Jinn",
     evidence: [
-      evidenceMap.spiritBox,
-      evidenceMap.ghostOrb,
-      evidenceMap.emfLevel5
+      evidenceMap.emfLevel5,
+      evidenceMap.fingerprints,
+      evidenceMap.freezingTemperatures
     ],
     notes: [
       'Travels at significant speed.',
@@ -112,7 +116,7 @@ export const ghosts = [
     evidence: [
       evidenceMap.spiritBox,
       evidenceMap.ghostOrb,
-      evidenceMap.freezingTemperatures
+      evidenceMap.ghostWriting
     ],
     notes: [
       'Increased chance of attacking in the dark.',
@@ -122,9 +126,9 @@ export const ghosts = [
   {
     name: "Revenant",
     evidence: [
-      evidenceMap.emfLevel5,
-      evidenceMap.fingerprints,
-      evidenceMap.ghostWriting
+      evidenceMap.ghostOrb,
+      evidenceMap.ghostWriting,
+      evidenceMap.freezingTemperatures
     ],
     notes: [
       'Travels at a significantly faster speed when hunting.',
@@ -136,7 +140,7 @@ export const ghosts = [
     evidence: [
       evidenceMap.emfLevel5,
       evidenceMap.ghostOrb,
-      evidenceMap.ghostWriting
+      evidenceMap.freezingTemperatures
     ],
     notes: [
       'Shy ghost and is harder to find.',
@@ -146,7 +150,7 @@ export const ghosts = [
   {
     name: "Demon",
     evidence: [
-      evidenceMap.spiritBox,
+      evidenceMap.fingerprints,
       evidenceMap.ghostWriting,
       evidenceMap.freezingTemperatures
     ],
@@ -159,8 +163,8 @@ export const ghosts = [
     name: "Yurei",
     evidence: [
       evidenceMap.ghostOrb,
-      evidenceMap.ghostWriting,
-      evidenceMap.freezingTemperatures
+      evidenceMap.freezingTemperatures,
+      evidenceMap.dotsProjector
     ],
     notes: [
       'Strong effect on sanity.',
@@ -171,8 +175,8 @@ export const ghosts = [
     name: "Oni",
     evidence: [
       evidenceMap.emfLevel5,
-      evidenceMap.spiritBox,
-      evidenceMap.ghostWriting
+      evidenceMap.freezingTemperatures,
+      evidenceMap.dotsProjector
     ],
     notes: [
       'More active with people nearby.',
@@ -185,7 +189,7 @@ export const ghosts = [
     evidence: [
       evidenceMap.fingerprints,
       evidenceMap.ghostOrb,
-      evidenceMap.ghostWriting
+      evidenceMap.freezingTemperatures
     ],
     notes: [
       'Fast in lower temperatures.',
@@ -197,11 +201,35 @@ export const ghosts = [
     evidence: [
       evidenceMap.spiritBox,
       evidenceMap.ghostOrb,
-      evidenceMap.ghostWriting
+      evidenceMap.dotsProjector
     ],
     notes: [
       'Talking near a Yokai will anger it and increase its chance of attacking.',
       'When hunting a Yokai can only hear voices close to it.'
+    ]
+  },
+  {
+    name: "Goryo",
+    evidence: [
+      evidenceMap.emfLevel5,
+      evidenceMap.fingerprints,
+      evidenceMap.dotsProjector
+    ],
+    notes: [
+      'Only show itself on camera if no people nearby.',
+      'Rarely seen far from place of death.'
+    ]
+  },
+  {
+    name: "Myling",
+    evidence: [
+      evidenceMap.emfLevel5,
+      evidenceMap.fingerprints,
+      evidenceMap.ghostWriting
+    ],
+    notes: [
+      'Quieter when hunting.',
+      'Frequently make paranormal sounds.'
     ]
   }
 ]
